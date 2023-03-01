@@ -26,7 +26,7 @@ foreach (array_unique(explode("\n", file_get_contents($name))) as $line) {
                 $output,
                 $status
             );
-            echo "Cloning to $path.";
+            echo "Cloning to $path.\n";
             foreach ($output as $out) {
                 echo "  $out";
             }
@@ -36,26 +36,26 @@ foreach (array_unique(explode("\n", file_get_contents($name))) as $line) {
                 $output,
                 $status
             );
-            echo "Registering key to $path.";
+            echo "Registering key to $path.\n";
             foreach ($output as $out) {
                 echo "  $out";
             }
-            echo "  Status $status";
+            echo "  Status $status\n";
         } else {
             exec(
                 'cd ' . $path . ' && git pull',
                 $output,
                 $status
             );
-            echo "Pulling to $path.";
+            echo "Pulling to $path.\n";
             foreach ($output as $out) {
                 echo "  $out";
             }
-            echo "  Status $status";
+            echo "  Status $status\n";
         }
         foreach ($moveables[$source] as $glob) {
             foreach (Glob::glob($path . '/' . $glob['from']) as $file) {
-                echo "  moving $file to {$glob['to-dir']}";
+                echo "  moving $file to {$glob['to-dir']}\n";
                 $dir = dirname($glob['to-dir'] . '/' . $glob['from']);
                 if (!is_dir($dir)) {
                     mkdir($dir, 0777, true);
