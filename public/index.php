@@ -1,7 +1,6 @@
 <?php
 
 use De\Idrinth\Yaml\Yaml;
-use Webmozart\Glob\Glob;
 
 require_once (__DIR__ . '/../vendor/autoload.php');
 

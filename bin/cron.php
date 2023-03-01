@@ -1,7 +1,9 @@
 <?php
 
-use Symfony\Component\Yaml\Yaml;
+use De\Idrinth\Yaml\Yaml;
 use Webmozart\Glob\Glob;
+
+require_once (__DIR__ . '/../vendor/autoload.php');
 
 $name = dirname(__DIR__) . '/cache/todo.' . microtime(true);
 rename(dirname(__DIR__) . '/cache/todo', $name);
