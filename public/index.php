@@ -25,7 +25,7 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
         $path = dirname(__DIR__) . '/cache/' . $post['repository']['full_name'];
         file_put_contents(
             dirname(__DIR__) . '/cache/todo',
-            "{$post['repository']['full_name']}|{$repository['source']}\n",
+            "{$post['repository']['full_name']}|{$repository['project']}\n",
             FILE_APPEND
         );
         header('Content-Type: text/plain', true, 200);
