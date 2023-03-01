@@ -33,8 +33,9 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
                 'git clone -c core.sshCommand="/usr/bin/ssh -i ' . dirname(__DIR__) . '/private.key" ' . $repository['project']. ' ' . $path,
                 $output
             );
+            var_dump('git clone -c core.sshCommand="/usr/bin/ssh -i ' . dirname(__DIR__) . '/private.key" ' . $repository['project']. ' ' . $path);
         } else {
-            echo exec('cd ' . $path . ' && git pull', $output);
+            exec('cd ' . $path . ' && git pull', $output);
         }
         foreach ($repository['files'] as $file) {
             foreach (Glob::glob($path . '/' . $file['from']) as $f) {
