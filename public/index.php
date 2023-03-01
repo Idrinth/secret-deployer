@@ -18,6 +18,7 @@ if (!isset($headers['X-GitHub-Event']) || $headers['X-GitHub-Event'] !== 'push')
     die();
 }
 $post = json_decode(file_get_contents('php://input'),true);
+$key = ['-c core.sshCommand="/usr/bin/ssh -i ' . dirname(__DIR__) . '/private.key"'];
 foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) {
     if ($repository['project'] === $post['repository']['ssh_url']) {
         if ($repository['source'] !== $_SERVER['REMOTE_ADDR']) {
@@ -27,11 +28,11 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
         $path = dirname(__DIR__) . '/cache/' . $post['repository']['full_name'];
         if (!is_dir($path)) {
             mkdir($path, 0700, true);
-            $repository = Admin::cloneRepository($path, $repository['project']);
+            $repository = Admin::cloneRepository($path, $repository['project'], $key);
             $repository->setDescription('Secrets cache');
         } else {
             $repository = new Repository($path);
-            $repository->run('pull');
+            $repository->run('pull', $key);
         }
         foreach ($repository['files'] as $file) {
             foreach (Glob::glob($path . '/' . $file['from']) as $f) {
