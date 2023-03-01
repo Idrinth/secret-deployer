@@ -30,6 +30,16 @@ foreach (array_unique(explode("\n", file_get_contents($name))) as $line) {
             foreach ($output as $out) {
                 echo "  $out";
             }
+            $output = [];
+            exec(
+                'cd ' . $path . ' && git config --local core.sshCommand "/usr/bin/ssh -i ' . dirname(__DIR__) . '/private.key"',
+                $output,
+                $status
+            );
+            echo "Registering key to $path.";
+            foreach ($output as $out) {
+                echo "  $out";
+            }
             echo "  Status $status";
         } else {
             exec(
