@@ -31,11 +31,18 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
             mkdir($path, 0700, true);
             exec(
                 'git clone -c core.sshCommand="/usr/bin/ssh -i ' . dirname(__DIR__) . '/private.key" ' . $repository['project']. ' ' . $path,
-                $output
+                $output,
+                $status
             );
         } else {
-            exec('cd ' . $path . ' && git pull', $output);
+            exec('cd ' . $path . ' && git pull', $output, $status);
         }
+        if ($status !== 0) {
+            header('Content-Type: text/plain', true, 500);
+            echo implode("\n", $output);
+            die();
+        }
+        $status = 200;
         foreach ($repository['files'] as $file) {
             foreach (Glob::glob($path . '/' . $file['from']) as $f) {
                 $t = $file['to-path'] . '/' . $file['from'];
@@ -43,10 +50,11 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
                     $output[] = "copied $f to $t sucessfully";
                 } else {
                     $output[] = "copying $f to $t failed";
+                    $status = 500;
                 }
             }
         }
-        header('Content-Type: text/plain', true, 200);
+        header('Content-Type: text/plain', true, $status);
         echo implode("\n", $output);
         die();
     }
