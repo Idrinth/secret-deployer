@@ -17,6 +17,7 @@ if (!isset($headers['X-GitHub-Event']) || $headers['X-GitHub-Event'] !== 'push')
     header('Content-Type: text/plain', true, 400);
     die();
 }
+    var_dump($_SERVER['REMOTE_ADDR'], $_POST);
 foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) {
     if ($repository['project'] === $_POST['repository']['ssh_url']) {
         if ($repository['source'] !== $_SERVER['REMOTE_ADDR']) {
