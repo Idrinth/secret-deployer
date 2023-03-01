@@ -5,6 +5,10 @@ use Webmozart\Glob\Glob;
 
 require_once (__DIR__ . '/../vendor/autoload.php');
 
+if (!is_file(dirname(__DIR__) . '/cache/todo')) {
+    die(0);
+}
+
 $name = dirname(__DIR__) . '/cache/todo.' . microtime(true);
 rename(dirname(__DIR__) . '/cache/todo', $name);
 $moveables = [];
