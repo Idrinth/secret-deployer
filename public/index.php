@@ -27,13 +27,13 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
         $output = [];
         if (!is_dir($path)) {
             mkdir($path, 0700, true);
-            exec(
+            var_dump(exec(
                 'git clone -c core.sshCommand="/usr/bin/ssh -i ' . dirname(__DIR__) . '/private.key" ' . $repository['project']. ' ' . $path,
                 $output,
                 $status
-            );
+            ));
         } else {
-            exec('cd ' . $path . ' && git pull', $output, $status);
+            var_dump(exec('cd ' . $path . ' && git pull', $output, $status));
         }
         if ($status !== 0) {
             header('Content-Type: text/plain', true, 200);
