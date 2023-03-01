@@ -1,0 +1,16 @@
+{
+    "name": "idrinth/secret-deployer",
+    "description": "A deployoption for secrets out of their own git repositories.",
+    "authors": [
+        {
+            "name": "Björn Büttner",
+            "homepage": "https://github.com/idrinth"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8",
+        "idrinth/yaml-facade": "^1.2.0",
+        "gitonomy/gitlib": "^1.3.7",
+        "webmozart/glob": "^4.6.0"
+    }
+}

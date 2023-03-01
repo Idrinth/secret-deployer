@@ -1,0 +1,5 @@
+- project: git+ssh://git@example.com/server/webroot.git
+  source: 127.0.0.1
+  files:
+  - from: .env
+    to-dir: /var/www
