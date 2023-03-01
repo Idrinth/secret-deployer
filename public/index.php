@@ -38,10 +38,11 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
         }
         foreach ($repository['files'] as $file) {
             foreach (Glob::glob($path . '/' . $file['from']) as $f) {
-                if (copy($f, $file['to-path'] . '/' . $f)) {
-                    $output[] = "copied $f sucessfully";
+                $t = $file['to-path'] . '/' . $file['from'];
+                if (copy($f, $t)) {
+                    $output[] = "copied $f to $t sucessfully";
                 } else {
-                    $output[] = "copying $f failed";
+                    $output[] = "copying $f to $t failed";
                 }
             }
         }
