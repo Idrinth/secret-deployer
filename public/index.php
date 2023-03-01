@@ -42,7 +42,7 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
             $output[] = "Pulling to $path.";
         }
         if ($status !== 0) {
-            header('Content-Type: text/plain', true, 200);
+            header('Content-Type: text/plain', true, 500);
             $output[] = "Exited with $status.";
             echo implode("\n", $output);
             foreach ($output as $line) {
@@ -62,7 +62,7 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
                 }
             }
         }
-        header('Content-Type: text/plain', true, 200);
+        header('Content-Type: text/plain', true, $status);
         echo implode("\n", $output);
         foreach ($output as $line) {
             error_log($line);
