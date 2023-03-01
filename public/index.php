@@ -36,7 +36,7 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
             exec('cd ' . $path . ' && git pull', $output, $status);
         }
         if ($status !== 0) {
-            header('Content-Type: text/plain', true, 500);
+            header('Content-Type: text/plain', true, 200);
             echo implode("\n", $output);
             foreach ($output as $line) {
                 error_log($line);
@@ -55,7 +55,7 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
                 }
             }
         }
-        header('Content-Type: text/plain', true, $status);
+        header('Content-Type: text/plain', true, 200);
         echo implode("\n", $output);
         foreach ($output as $line) {
             error_log($line);
