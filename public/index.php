@@ -19,12 +19,12 @@ if (!isset($headers['X-GitHub-Event']) || $headers['X-GitHub-Event'] !== 'push')
 }
 $post = json_decode(file_get_contents('php://input'),true);
 foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) {
-    if ($repository['project'] === $_POST['repository']['ssh_url']) {
+    if ($repository['project'] === $post['repository']['ssh_url']) {
         if ($repository['source'] !== $_SERVER['REMOTE_ADDR']) {
             header('Content-Type: text/plain', true, 403);
             die();
         }
-        $path = dirname(__DIR__) . '/cache/' . $_POST['repository']['full_name'];
+        $path = dirname(__DIR__) . '/cache/' . $post['repository']['full_name'];
         if (!is_dir($path)) {
             mkdir($path, 0700, true);
             $repository = Admin::cloneRepository($path, $repository['project']);
