@@ -1,8 +1,6 @@
 <?php
 
 use De\Idrinth\Yaml\Yaml;
-use Gitonomy\Git\Admin;
-use Gitonomy\Git\Repository;
 use Webmozart\Glob\Glob;
 
 require_once (__DIR__ . '/../vendor/autoload.php');
@@ -40,6 +38,9 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
         if ($status !== 0) {
             header('Content-Type: text/plain', true, 500);
             echo implode("\n", $output);
+            foreach ($output as $line) {
+                error_log($line);
+            }
             die();
         }
         $status = 200;
