@@ -26,11 +26,15 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
             die();
         }
         $path = dirname(__DIR__) . '/cache/' . $post['repository']['full_name'];
+        $output = [];
         if (!is_dir($path)) {
             mkdir($path, 0700, true);
-            echo exec('git clone -q -c core.sshCommand="/usr/bin/ssh -i ' . dirname(__DIR__) . '/private.key" ' . $repository['project']. ' ' . $path);
+            exec(
+                'git clone -q -c core.sshCommand="/usr/bin/ssh -i ' . dirname(__DIR__) . '/private.key" ' . $repository['project']. ' ' . $path,
+                $output
+            );
         } else {
-            echo exec('cd ' . $path . '; git pull');
+            echo exec('cd ' . $path . ' && git pull', $output);
         }
         foreach ($repository['files'] as $file) {
             foreach (Glob::glob($path . '/' . $file['from']) as $f) {
@@ -38,6 +42,7 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
             }
         }
         header('Content-Type: text/plain', true, 200);
+        echo implode("\n", $output);
         die();
     }
 }
