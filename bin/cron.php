@@ -43,7 +43,7 @@ foreach (array_unique(explode("\n", file_get_contents($name))) as $line) {
             echo "  Status $status";
         } else {
             exec(
-                'cd ' . $path . ' && git pull  -c core.sshCommand="/usr/bin/ssh -i ' . dirname(__DIR__) . '/private.key"',
+                'cd ' . $path . ' && git pull',
                 $output,
                 $status
             );
