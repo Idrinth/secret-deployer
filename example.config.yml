@@ -1,4 +1,4 @@
-- project: git+ssh://git@example.com/server/webroot.git
+- project: git@example.com:server/webroot.git
   source: 127.0.0.1
   files:
   - from: .env
