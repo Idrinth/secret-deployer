@@ -10,7 +10,6 @@
     "require": {
         "php": "^7.4 || ^8",
         "idrinth/yaml-facade": "^1.2.0",
-        "gitonomy/gitlib": "^1.3.7",
         "webmozart/glob": "^4.6.0"
     }
 }
