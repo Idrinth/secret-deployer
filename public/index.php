@@ -13,7 +13,7 @@ if (!isset($headers['X-GitHub-Delivery'])) {
     header('Content-Type: text/plain', true, 400);
     die();
 }
-if (!isset($headers['X-GitHub-Event']) || $headers['X-GitHub-Event'] === 'push') {
+if (!isset($headers['X-GitHub-Event']) || $headers['X-GitHub-Event'] !== 'push') {
     header('Content-Type: text/plain', true, 400);
     die();
 }
