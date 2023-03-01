@@ -45,7 +45,7 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
         $status = 200;
         foreach ($repository['files'] as $file) {
             foreach (Glob::glob($path . '/' . $file['from']) as $f) {
-                $t = $file['to-path'] . '/' . $file['from'];
+                $t = $file['to-dir'] . '/' . $file['from'];
                 if (copy($f, $t)) {
                     $output[] = "copied $f to $t sucessfully";
                 } else {
