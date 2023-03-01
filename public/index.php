@@ -18,7 +18,7 @@ if (!isset($headers['X-GitHub-Event']) || $headers['X-GitHub-Event'] !== 'push')
     die();
 }
 $post = json_decode(file_get_contents('php://input'),true);
-$key = ['-c core.sshCommand="/usr/bin/ssh -i ' . dirname(__DIR__) . '/private.key"'];
+$key = ['-c', 'core.sshCommand="/usr/bin/ssh -i ' . dirname(__DIR__) . '/private.key"'];
 foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) {
     if ($repository['project'] === $post['repository']['ssh_url']) {
         if ($repository['source'] !== $_SERVER['REMOTE_ADDR']) {
