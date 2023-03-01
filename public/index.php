@@ -5,7 +5,7 @@ use Gitonomy\Git\Admin;
 use Gitonomy\Git\Repository;
 use Webmozart\Glob\Glob;
 
-require_once (__DIR__ . '/vendor/autoload.php');
+require_once (__DIR__ . '/../vendor/autoload.php');
 
 $headers = apache_request_headers();
 
