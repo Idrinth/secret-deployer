@@ -28,9 +28,9 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
         $path = dirname(__DIR__) . '/cache/' . $post['repository']['full_name'];
         if (!is_dir($path)) {
             mkdir($path, 0700, true);
-            exec('git clone -q -c core.sshCommand="/usr/bin/ssh -i ' . dirname(__DIR__) . '/private.key" ' . $repository['project']. ' ' . $path);
+            echo exec('git clone -q -c core.sshCommand="/usr/bin/ssh -i ' . dirname(__DIR__) . '/private.key" ' . $repository['project']. ' ' . $path);
         } else {
-            exec('cd ' . $path . '; git pull');
+            echo exec('cd ' . $path . '; git pull');
         }
         foreach ($repository['files'] as $file) {
             foreach (Glob::glob($path . '/' . $file['from']) as $f) {
