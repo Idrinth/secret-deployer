@@ -56,6 +56,9 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
         }
         header('Content-Type: text/plain', true, $status);
         echo implode("\n", $output);
+        foreach ($output as $line) {
+            error_log($line);
+        }
         die();
     }
 }
