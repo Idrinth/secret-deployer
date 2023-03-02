@@ -18,7 +18,7 @@ foreach (Yaml::decodeFromFile(dirname(__DIR__) . '/config.yml') as $repository) 
 foreach (array_unique(explode("\n", file_get_contents($name))) as $line) {
     if (!empty($line)) {
         list($path, $source) = explode('|', $line);
-        $path = realpath(__DIR__ . '/../cache/' . $path);
+        $path = __DIR__ . '/../cache/' . $path;
         if (!is_dir($path)) {
             mkdir($path, 0700, true);
             exec(
@@ -53,6 +53,7 @@ foreach (array_unique(explode("\n", file_get_contents($name))) as $line) {
             }
             echo "  Status $status\n";
         }
+        $path = realpath($path);
         foreach ($moveables[$source] as $glob) {
             foreach (Glob::glob($path . '/' . $glob['from']) as $file) {
                 $file = preg_replace('/^' . preg_quote($path, '/') . '/', '', realpath($file));
