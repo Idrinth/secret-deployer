@@ -55,7 +55,7 @@ foreach (array_unique(explode("\n", file_get_contents($name))) as $line) {
         }
         foreach ($moveables[$source] as $glob) {
             foreach (Glob::glob($path . '/' . $glob['from']) as $file) {
-                $file = preg_replace('/^' . preg_quote($path, '\//') . '/', '', $file);
+                $file = preg_replace('/^' . preg_quote(realpath($path), '\/') . '/', '', realpath($file));
                 echo "  moving $file to {$glob['to-dir']}\n";
                 $dir = dirname($glob['to-dir'] . '/' . $file);
                 if (!is_dir($dir)) {
