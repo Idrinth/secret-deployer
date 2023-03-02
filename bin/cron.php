@@ -55,12 +55,13 @@ foreach (array_unique(explode("\n", file_get_contents($name))) as $line) {
         }
         foreach ($moveables[$source] as $glob) {
             foreach (Glob::glob($path . '/' . $glob['from']) as $file) {
+                $file = preg_replace('/^' . preg_quote($path, '\//') . '/', '', $file);
                 echo "  moving $file to {$glob['to-dir']}\n";
-                $dir = dirname($glob['to-dir'] . '/' . $glob['from']);
+                $dir = dirname($glob['to-dir'] . '/' . $file);
                 if (!is_dir($dir)) {
                     mkdir($dir, 0777, true);
                 }
-                file_put_contents($glob['to-dir'] . '/' . $glob['from'], file_get_contents($file));
+                file_put_contents($glob['to-dir'] . '/' . $file, file_get_contents($path . '/' . $file));
             }
         }
     }
