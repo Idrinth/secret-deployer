@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8",
+        "php": "^8.3",
         "idrinth/yaml-facade": "^1.2.0",
         "webmozart/glob": "^4.6.0"
     }
